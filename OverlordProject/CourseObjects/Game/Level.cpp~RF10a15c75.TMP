@@ -1,0 +1,603 @@
+#include "stdafx.h"
+#include "Level.h"
+
+#include "Components/Components.h"
+#include "Physx/PhysxManager.h"
+#include "Scenegraph/GameObject.h"
+#include "Physx\PhysxProxy.h"
+
+#include "../../Materials/ColorMaterial.h"
+#include "Content/ContentManager.h"
+
+#include "../Week2/Character.h"
+#include "Pickup.h"
+#include "Enemy.h"
+#include "EnemyCollisionPlayer.h"
+#include "Projectile.h"
+#include "Hud.h"
+#include "Materials/Shadow/DiffuseMaterial_Shadow.h"
+#include "Materials/DiffuseMaterial.h"
+#include "Platform.h"
+#include "Platformer.h"
+#include "Scenegraph/SceneManager.h"
+
+
+
+Level::Level() :
+	m_pLevel(nullptr),
+	m_pHud(nullptr)
+{
+}
+
+Level::~Level()
+{
+	GameObject::~GameObject();
+
+}
+
+void Level::Initialize(const GameContext & gameContext)
+{
+	//Color Material
+	auto pDiffuseMaterialCoin = new DiffuseMaterial();
+	pDiffuseMaterialCoin->SetDiffuseTexture(L"Resources/Textures/Platformer/GoldCoin.png");
+	gameContext.pMaterialManager->AddMaterial(pDiffuseMaterialCoin, UINT(0));
+
+	auto pDiffuseMaterialKey = new DiffuseMaterial();
+	pDiffuseMaterialKey->SetDiffuseTexture(L"Resources/Textures/Platformer/Key.png");
+	gameContext.pMaterialManager->AddMaterial(pDiffuseMaterialKey, UINT(13));
+
+	UNREFERENCED_PARAMETER(gameContext);
+	//Platform Material
+	auto pDiffuseMaterial = new DiffuseMaterial();
+	pDiffuseMaterial->SetDiffuseTexture(L"Resources/Textures/Platformer/Prop_Tile_Purple_Tex_D.png");
+	gameContext.pMaterialManager->AddMaterial(pDiffuseMaterial, UINT(11));
+
+	
+	InitLevel(gameContext);
+	InitItems(gameContext);
+	InitColliders(gameContext);
+	InitPlatforms(gameContext);
+	
+}
+
+void Level::Update(const GameContext & gameContext)
+{
+	UNREFERENCED_PARAMETER(gameContext);
+	
+	if(m_pHud->GetKeys() == 3)
+	{
+		m_IsExitActivated = true;
+	}
+
+}
+
+void Level::SpawnProjectile(XMFLOAT3 startPos, XMFLOAT3 forwardVec)
+{
+	auto projectile = new Projectile(startPos, forwardVec, this);
+	AddChildRuntime(projectile);
+}
+
+void Level::DeleteProjectile(Projectile * projectile)
+{
+	RemoveChildRuntime(projectile);
+
+}
+
+void Level::DeletePickup(Pickup * pickupToDelete)
+{
+	if (pickupToDelete->GetType() == Coin)
+	{
+		RemoveChildRuntime(pickupToDelete);
+		m_pHud->IncreaseScoreCoins();
+	}
+	else
+	{
+		RemoveChildRuntime(pickupToDelete);
+		m_pHud->IncreaseKeys();
+	}
+}
+
+void Level::SpawnPickup(XMFLOAT3 pos, PickUpType type)
+{
+	auto pickUp = new Pickup(pos,type);
+	pickUp->SetOnTriggerCallBack(ItemTrigger);
+	AddChild(pickUp);
+	
+
+	m_pPickupVec.push_back(pickUp);
+}
+
+void Level::ResetLevel()
+{
+	std::cout << m_pPickupVec.size() << std::endl;
+	m_pPickupVec.clear();
+	m_pPickupVec.shrink_to_fit();
+	std::cout << m_pPickupVec.size() << std::endl;
+	for (auto pickup : m_pPickupVec)
+	{		
+		RemoveChild(pickup);
+	}
+	std::cout << m_pPickupVec.size() << std::endl;
+
+	SpawnPickup(XMFLOAT3{ -29.6f, 2.7f, 91.f },Coin);
+	SpawnPickup(XMFLOAT3{-22.9f, 4.3f, 83.2f}, Coin);
+	SpawnPickup(XMFLOAT3{ -15.1f, 6.79f, 88.2f }, Coin);
+	SpawnPickup(XMFLOAT3{ -21.31f, 8.39f, 95.35f }, Coin);
+	SpawnPickup(XMFLOAT3{ 49.0f, 1.9f, 66.4f }, Coin);
+	SpawnPickup(XMFLOAT3{ 68.3f, 1.9f, 13.1f }, Coin);
+	SpawnPickup(XMFLOAT3{ 77.0f, -7.0f, -117.3f }, Coin);
+	SpawnPickup(XMFLOAT3{ -74.6f, -2.15f, -37.16f }, Coin);
+	SpawnPickup(XMFLOAT3{ -142.56f, -1.0f, 29.35f }, Coin);
+	SpawnPickup(XMFLOAT3{ -154.82f, 3.69f, 40.6f }, Coin);
+	SpawnPickup(XMFLOAT3{ -153.1f, 1.8f, 76.6f }, Coin);
+	SpawnPickup(XMFLOAT3{ -6.12f, 4.9f, -15.86f }, Coin);
+	SpawnPickup(XMFLOAT3{ 87.77f, 10.f, -175.9f }, Key);
+	SpawnPickup(XMFLOAT3{ 21.605f, 9.14f, 137.95f }, Key);
+	SpawnPickup(XMFLOAT3{ -162.14f, 9.22f, 56.6f }, Key);
+
+	for (auto enemy : m_pEnemyVec)
+	{
+		enemy->SetIsAlive(false);
+
+	}
+
+	for (auto enemy : m_pEnemyVec)
+	{
+		enemy->ResetEnemy();
+		
+	}
+
+	m_pHud->SetScoreCoins(0);
+	m_pHud->SetScore(0);
+	m_pHud->SetLives(10);
+	m_pHud->SetKeys(0);
+	m_IsExitActivated = false;
+}
+
+void Level::PostInit()
+{
+	for (auto enemy : m_pEnemyVec)
+	{
+		enemy->PostInit();
+	}
+}
+
+void Level::RemoveLifePlayer()
+{
+	m_pHud->DecreaseLives();
+}
+
+void Level::AddPoints()
+{
+	m_pHud->IncreaseScore();
+}
+
+void Level::InitLevel(const GameContext & gameContext)
+{
+	UNREFERENCED_PARAMETER(gameContext);
+
+	auto physX = PhysxManager::GetInstance()->GetPhysics();
+	auto bouncyMaterial = physX->createMaterial(0.5, 0.5, 1.0f);
+
+	AddComponent(new RigidBodyComponent(true));
+
+	auto geom(ContentManager::Load<PxTriangleMesh>(L"Resources/Meshes/Platformer/Level.ovpt"));
+
+	std::shared_ptr<PxGeometry> geometry(new PxTriangleMeshGeometry(geom));
+
+	AddComponent(new ColliderComponent(geometry, *bouncyMaterial));
+	
+	auto pGroundModel = new ModelComponent(L"Resources/Meshes/Platformer/Level.ovm");
+	
+	AddComponent(pGroundModel);
+
+	pGroundModel->SetMaterial(10);
+}
+
+void Level::InitItems(const GameContext & gameContext)
+{
+	UNREFERENCED_PARAMETER(gameContext);
+	auto physX = PhysxManager::GetInstance()->GetPhysics();
+	auto bouncyMaterial = physX->createMaterial(0.5, 0.5, 1.0f);
+
+	auto WaterCollisionBox = new GameObject();
+
+	auto rigidBody = new RigidBodyComponent(true);
+
+	WaterCollisionBox->AddComponent(rigidBody);
+
+	std::shared_ptr<PxGeometry> geometry(new PxBoxGeometry(120.0f, 1.0f, 75.0f));
+
+	ColliderComponent *collider = new ColliderComponent(geometry, *bouncyMaterial);
+
+	collider->EnableTrigger(true);
+	WaterCollisionBox->AddComponent(collider);
+	WaterCollisionBox->SetOnTriggerCallBack(SetWaterTrigger);
+	AddChild(WaterCollisionBox);
+
+	WaterCollisionBox->GetTransform()->Translate(79.72f, -13.05f, -159.3f);
+
+	InitPickUps(gameContext);
+	InitEnemies(gameContext);
+
+	m_pHud = new Hud();
+	AddChild(m_pHud);
+
+}
+
+void Level::ItemTrigger(GameObject * triggerobject, GameObject * otherobject, TriggerAction action)
+{
+	UNREFERENCED_PARAMETER(triggerobject);
+	UNREFERENCED_PARAMETER(otherobject);
+	UNREFERENCED_PARAMETER(action);
+
+	auto chara = dynamic_cast<Character*>(otherobject);
+	
+	auto trigger = static_cast<Pickup*>(triggerobject);
+
+	if (chara && trigger)
+	{
+		trigger->SetState(State::flyingTowardsPlayer);
+		trigger->SetCharacterRef(chara);
+	}
+	
+}
+
+void Level::EnemyTrigger(GameObject * triggerobject, GameObject * otherobject, TriggerAction action)
+{
+	UNREFERENCED_PARAMETER(action);
+	auto chara = dynamic_cast<Character*>(otherobject);
+
+	auto enemy = static_cast<EnemyCollisionPlayer*>(triggerobject);
+
+	if (chara && enemy)
+	{
+		enemy->SetIsFollowing(true);
+		enemy->SetCharacterReference(chara);
+	}
+
+}
+
+void Level::ProjectileTrigger(GameObject * triggerobject, GameObject * otherobject, TriggerAction action)
+{
+	UNREFERENCED_PARAMETER(action);
+	auto projectile = static_cast<Projectile*>(otherobject);
+	auto enemy = dynamic_cast<Enemy*>(triggerobject);
+
+	if (enemy && projectile)
+	{
+		projectile->SetIsAlive(false);
+	}
+
+}
+
+void Level::SetWaterTrigger(GameObject* triggerobject, GameObject* otherobject, TriggerAction action)
+{
+
+	UNREFERENCED_PARAMETER(action);
+
+	auto chara = dynamic_cast<Character*>(otherobject);
+
+	auto trigger = static_cast<GameObject*>(triggerobject);
+
+	if (chara && trigger)
+	{
+		chara->SetPos(XMFLOAT3{ 77.22f,-7.15f,-98.9f });
+		
+	}
+}
+
+
+void Level::InitPlatforms(const GameContext & gameContext)
+{
+	UNREFERENCED_PARAMETER(gameContext);
+	auto pPlatform = new Platform({ 77.0f, -7.0f, -130.0f });
+	AddChild(pPlatform);
+	pPlatform->SetGoal({ 0.0f, 5.f, 20.0f });
+	pPlatform->SetSecondaryGoal({ 0.0f, 5.f, 20.0f });
+	pPlatform->SetState(PlatformState::idle);
+
+	auto pPlatform2 = new Platform({ 77.0f, -2.0f, -145.0f });
+	AddChild(pPlatform2);
+	pPlatform2->SetGoal({ 0.0f, 5.f, 20.0f });
+	pPlatform2->SetSecondaryGoal({ 0.0f, 5.f, 20.0f });
+	pPlatform2->SetState(PlatformState::idle);
+
+	auto pPlatform3 = new Platform({ 54.0f, 0.0f, -148.0f });
+	AddChild(pPlatform3);
+	pPlatform3->SetGoal({ 0.0f, 5.f, 20.0f });
+	pPlatform3->SetSecondaryGoal({ 0.0f, 5.f, 20.0f });
+	pPlatform3->SetState(PlatformState::idle);
+
+	auto pPlatform4 = new Platform({ 54.9f, -2.0f, -174.3f });
+	AddChild(pPlatform4);
+	//pPlatform4->SetGoal({ 54.9f, -2.0f, -174.3f });
+	pPlatform4->SetSecondaryGoal({ 47.9f, -2.0f, -174.3f });
+	pPlatform4->SetState(PlatformState::flyingTowardsGoal);
+
+	auto pPlatform5 = new Platform({ 88.33f, 0.0f, -173.6f });
+	AddChild(pPlatform5);
+	//pPlatform5->SetGoal({ 88.33f, 0.0f, -173.6f });
+	pPlatform5->SetSecondaryGoal({ 88.33f,  0.0f,  -188.6f });
+	pPlatform5->SetState(PlatformState::flyingTowardsGoal);
+
+}
+void Level::InitPickUps(const GameContext & gameContext)
+{
+	UNREFERENCED_PARAMETER(gameContext);
+	SpawnPickup(XMFLOAT3{ -29.6f, 2.7f, 91.f }, Coin);
+	SpawnPickup(XMFLOAT3{ -22.9f, 4.3f, 83.2f }, Coin);
+	SpawnPickup(XMFLOAT3{ -15.1f, 6.79f, 88.2f }, Coin);
+	SpawnPickup(XMFLOAT3{ -21.31f, 8.39f, 95.35f }, Coin);
+	SpawnPickup(XMFLOAT3{ 49.0f, 1.9f, 66.4f }, Coin);
+	SpawnPickup(XMFLOAT3{ 68.3f, 1.9f, 13.1f }, Coin);
+	SpawnPickup(XMFLOAT3{ 77.0f, -7.0f, -117.3f }, Coin);
+	SpawnPickup(XMFLOAT3{ -74.6f, -2.15f, -37.16f }, Coin);
+	SpawnPickup(XMFLOAT3{ -142.56f, -1.0f, 29.35f }, Coin);
+	SpawnPickup(XMFLOAT3{ -154.82f, 3.69f, 40.6f }, Coin);
+	SpawnPickup(XMFLOAT3{ -153.1f, 1.8f, 76.6f }, Coin);
+	SpawnPickup(XMFLOAT3{ -6.12f, 4.9f, -15.86f }, Coin);
+	SpawnPickup(XMFLOAT3{ 87.77f, 10.f, -175.9f }, Key);
+	SpawnPickup(XMFLOAT3{ 21.605f, 9.14f, 137.95f }, Key);
+	SpawnPickup(XMFLOAT3{ -162.14f, 9.22f, 56.6f }, Key);
+
+}
+void Level::InitEnemies(const GameContext & gameContext)
+{
+	UNREFERENCED_PARAMETER(gameContext);
+	auto enemy = new Enemy({ 76.46f, -7.0f, -117.0f }, 200.0f, 180.0f);
+
+	enemy->SetOnTriggerCallBack(EnemyTrigger);
+	AddChild(enemy);
+
+	m_pEnemyVec.push_back(enemy);
+
+	auto enemy2 = new Enemy({ -14.9f, 0.57f, 64.3f }, 200.0f, 180.0f);
+
+	enemy2->SetOnTriggerCallBack(EnemyTrigger);
+	AddChild(enemy2);
+
+	m_pEnemyVec.push_back(enemy2);
+
+	auto enemy3 = new Enemy({ 52.29f, 0.2f, 90.9f }, 200.0f, 180.0f);
+
+	enemy3->SetOnTriggerCallBack(EnemyTrigger);
+	AddChild(enemy3);
+
+	m_pEnemyVec.push_back(enemy3);
+
+	auto enemy4 = new Enemy({ -131.58f, -14.0f, 80.0f }, 200.0f, 180.0f);
+
+	enemy4->SetOnTriggerCallBack(EnemyTrigger);
+	AddChild(enemy4);
+
+	m_pEnemyVec.push_back(enemy4);
+
+	auto enemy5 = new Enemy({ -78.8f, -2.4f, -40.0f }, 200.0f, 180.0f);
+
+	enemy5->SetOnTriggerCallBack(EnemyTrigger);
+	AddChild(enemy5);
+
+	m_pEnemyVec.push_back(enemy5);
+}
+
+void Level::InitColliders(const GameContext & gameContext)
+{
+	UNREFERENCED_PARAMETER(gameContext);
+
+	auto physX = PhysxManager::GetInstance()->GetPhysics();
+	auto bouncyMaterial = physX->createMaterial(0.5, 0.5, 1.0f);
+
+
+	auto levelCollisionBox = new GameObject();
+	
+	auto rigidBody = new RigidBodyComponent(true);
+
+	levelCollisionBox->AddComponent(rigidBody);
+
+	std::shared_ptr<PxGeometry> geometry(new PxBoxGeometry(130.0f, 30.0f, 2.0f));
+
+	ColliderComponent *collider = new ColliderComponent(geometry, *bouncyMaterial);
+
+	levelCollisionBox->AddComponent(collider);
+	AddChild(levelCollisionBox);
+
+	levelCollisionBox->GetTransform()->Translate(79.45f, -10.05f, -227.671f);
+
+	auto levelCollisionBox2 = new GameObject();
+
+	auto rigidBody2 = new RigidBodyComponent(true);
+
+	levelCollisionBox2->AddComponent(rigidBody2);
+
+	std::shared_ptr<PxGeometry> geometry2(new PxBoxGeometry(2.0f, 30.0f, 70.0f));
+
+	ColliderComponent *collider2 = new ColliderComponent(geometry2, *bouncyMaterial);
+
+	levelCollisionBox2->AddComponent(collider2);
+	AddChild(levelCollisionBox2);
+
+	levelCollisionBox2->GetTransform()->Translate(-37.22f, -10.05f, -161.62f);
+
+	auto levelCollisionBox3 = new GameObject();
+
+	auto rigidBody3 = new RigidBodyComponent(true);
+
+	levelCollisionBox3->AddComponent(rigidBody3);
+
+	std::shared_ptr<PxGeometry> geometry3(new PxBoxGeometry(2.0f, 30.0f, 90.0f));
+
+	ColliderComponent *collider3 = new ColliderComponent(geometry3, *bouncyMaterial);
+
+	levelCollisionBox3->AddComponent(collider3);
+	AddChild(levelCollisionBox3);
+
+	levelCollisionBox3->GetTransform()->Translate(191.255f, -10.0f, -160.1f);
+
+	auto levelCollisionBox4 = new GameObject();
+
+	auto rigidBody4 = new RigidBodyComponent(true);
+
+	levelCollisionBox4->AddComponent(rigidBody4);
+
+	std::shared_ptr<PxGeometry> geometry4(new PxBoxGeometry(100.0f, 10.0f,30.0f));
+
+	ColliderComponent *collider4 = new ColliderComponent(geometry4, *bouncyMaterial);
+
+	levelCollisionBox4->AddComponent(collider4);
+	AddChild(levelCollisionBox4);
+
+	levelCollisionBox4->GetTransform()->Translate(80.93f, 27.65f, -51.7f);
+
+	auto levelCollisionBox5 = new GameObject();
+
+	auto rigidBody5 = new RigidBodyComponent(true);
+
+	levelCollisionBox5->AddComponent(rigidBody5);
+
+	std::shared_ptr<PxGeometry> geometry5(new PxBoxGeometry(10.0f, 10.0f, 100.0f));
+
+	ColliderComponent *collider5 = new ColliderComponent(geometry5, *bouncyMaterial);
+
+	levelCollisionBox5->AddComponent(collider5);
+	AddChild(levelCollisionBox5);
+
+	levelCollisionBox5->GetTransform()->Translate(115.84f, 26.37f, 81.69f);
+
+	auto levelCollisionBox6 = new GameObject();
+
+	auto rigidBody6 = new RigidBodyComponent(true);
+
+	levelCollisionBox6->AddComponent(rigidBody6);
+
+	std::shared_ptr<PxGeometry> geometry6(new PxBoxGeometry(100.0f, 20.0f, 9.0f));
+
+	ColliderComponent *collider6 = new ColliderComponent(geometry6, *bouncyMaterial);
+
+	levelCollisionBox6->AddComponent(collider6);
+	AddChild(levelCollisionBox6);
+
+	levelCollisionBox6->GetTransform()->Translate(20.48f, 29.9f, 154.1f);
+
+	auto levelCollisionBox7 = new GameObject();
+
+	auto rigidBody7 = new RigidBodyComponent(true);
+
+	levelCollisionBox7->AddComponent(rigidBody7);
+
+	std::shared_ptr<PxGeometry> geometry7(new PxBoxGeometry(15.0f, 10.0f, 80.0f));
+
+	ColliderComponent *collider7 = new ColliderComponent(geometry7, *bouncyMaterial);
+
+	levelCollisionBox7->AddComponent(collider7);
+	AddChild(levelCollisionBox7);
+
+	levelCollisionBox7->GetTransform()->Translate(-74.34f, 21.99f, 74.42f);
+
+	auto levelCollisionBox8 = new GameObject();
+
+	auto rigidBody8 = new RigidBodyComponent(true);
+
+	levelCollisionBox8->AddComponent(rigidBody8);
+
+	std::shared_ptr<PxGeometry> geometry8(new PxBoxGeometry(60.0f, 10.0f, 7.0f));
+
+	ColliderComponent *collider8 = new ColliderComponent(geometry8, *bouncyMaterial);
+
+	levelCollisionBox8->AddComponent(collider8);
+	AddChild(levelCollisionBox8);
+
+	levelCollisionBox8->GetTransform()->Translate(-77.26f, 16.59f, -72.48f);
+
+	auto levelCollisionBox9 = new GameObject();
+
+	auto rigidBody9 = new RigidBodyComponent(true);
+
+	levelCollisionBox9->AddComponent(rigidBody9);
+
+	std::shared_ptr<PxGeometry> geometry9(new PxBoxGeometry(10.0f, 10.0f, 40.0f));
+
+	ColliderComponent *collider9 = new ColliderComponent(geometry9, *bouncyMaterial);
+
+	levelCollisionBox9->AddComponent(collider9);
+	AddChild(levelCollisionBox9);
+
+	levelCollisionBox9->GetTransform()->Translate(-143.3f, 16.6f, -39.5f);
+
+	auto levelCollisionBox10 = new GameObject();
+
+	auto rigidBody10 = new RigidBodyComponent(true);
+
+	levelCollisionBox10->AddComponent(rigidBody10);
+
+	std::shared_ptr<PxGeometry> geometry10(new PxBoxGeometry(60.0f, 10.0f, 10.0f));
+
+	ColliderComponent *collider10 = new ColliderComponent(geometry10, *bouncyMaterial);
+
+	levelCollisionBox10->AddComponent(collider10);
+	AddChild(levelCollisionBox10);
+
+	levelCollisionBox10->GetTransform()->Translate(-140.77f, 23.3f, -9.7f);
+
+	auto levelCollisionBox11 = new GameObject();
+
+	auto rigidBody11 = new RigidBodyComponent(true);
+
+	levelCollisionBox11->AddComponent(rigidBody11);
+
+	std::shared_ptr<PxGeometry> geometry11(new PxBoxGeometry(15.0f, 10.0f, 60.0f));
+
+	ColliderComponent *collider11 = new ColliderComponent(geometry11, *bouncyMaterial);
+
+	levelCollisionBox11->AddComponent(collider11);
+	AddChild(levelCollisionBox11);
+
+	levelCollisionBox11->GetTransform()->Translate(-190.19f, 26.85f, 55.66f);
+
+	auto levelCollisionBox12 = new GameObject();
+
+	auto rigidBody12 = new RigidBodyComponent(true);
+
+	levelCollisionBox12->AddComponent(rigidBody12);
+
+	std::shared_ptr<PxGeometry> geometry12(new PxBoxGeometry(70.0f, 10.0f, 10.0f));
+
+	ColliderComponent *collider12 = new ColliderComponent(geometry12, *bouncyMaterial);
+
+	levelCollisionBox12->AddComponent(collider12);
+	AddChild(levelCollisionBox12);
+
+	levelCollisionBox12->GetTransform()->Translate(-140.64f, 14.8f, 127.5f);
+
+	auto levelCollisionBox13 = new GameObject();
+
+	auto rigidBody13 = new RigidBodyComponent(true);
+
+	levelCollisionBox13->AddComponent(rigidBody13);
+
+	std::shared_ptr<PxGeometry> geometry13(new PxBoxGeometry(10.0f, 10.0f, 10.0f));
+
+	ColliderComponent *collider13 = new ColliderComponent(geometry13, *bouncyMaterial);
+
+	levelCollisionBox13->AddComponent(collider13);
+	AddChild(levelCollisionBox13);
+
+	levelCollisionBox13->GetTransform()->Translate(180.539f, -10.05f, -88.93f);
+
+	auto levelCollisionBox14 = new GameObject();
+
+	auto rigidBody14 = new RigidBodyComponent(true);
+
+	levelCollisionBox14->AddComponent(rigidBody14);
+
+	std::shared_ptr<PxGeometry> geometry14(new PxBoxGeometry(10.0f, 10.0f, 10.0f));
+
+	ColliderComponent *collider14 = new ColliderComponent(geometry14, *bouncyMaterial);
+
+	levelCollisionBox14->AddComponent(collider14);
+	AddChild(levelCollisionBox14);
+
+	levelCollisionBox14->GetTransform()->Translate(-39.76f, 23.41f, 137.25f);
+
+}
+

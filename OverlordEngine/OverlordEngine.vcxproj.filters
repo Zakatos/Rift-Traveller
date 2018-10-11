@@ -1,0 +1,429 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Base\GameTime.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\InputManager.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\MaterialManager.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\OverlordGame.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\SoundManager.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\stdafx.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\BaseComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\CameraComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\ColliderComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\ControllerComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\MeshDrawComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\MeshIndexedDrawComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\ParticleEmitterComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\ModelComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\RigidBodyComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\SpriteComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\TerrainComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\TransformComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Content\ContentManager.cpp">
+      <Filter>Content</Filter>
+    </ClCompile>
+    <ClCompile Include="Content\EffectLoader.cpp">
+      <Filter>Content</Filter>
+    </ClCompile>
+    <ClCompile Include="Content\MeshFilterLoader.cpp">
+      <Filter>Content</Filter>
+    </ClCompile>
+    <ClCompile Include="Content\PxConvexMeshLoader.cpp">
+      <Filter>Content</Filter>
+    </ClCompile>
+    <ClCompile Include="Content\PxTriangleMeshLoader.cpp">
+      <Filter>Content</Filter>
+    </ClCompile>
+    <ClCompile Include="Content\SpriteFontLoader.cpp">
+      <Filter>Content</Filter>
+    </ClCompile>
+    <ClCompile Include="Content\TextureDataLoader.cpp">
+      <Filter>Content</Filter>
+    </ClCompile>
+    <ClCompile Include="Diagnostics\DebugRenderer.cpp">
+      <Filter>Diagnostics</Filter>
+    </ClCompile>
+    <ClCompile Include="Diagnostics\GameSpecs.cpp">
+      <Filter>Diagnostics</Filter>
+    </ClCompile>
+    <ClCompile Include="Diagnostics\Logger.cpp">
+      <Filter>Diagnostics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\MeshFilter.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Material.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Particle.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\ModelAnimator.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\RenderTarget.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\ShadowMapRenderer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\SpriteRenderer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\SpriteFont.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\TextureData.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\TextRenderer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\BinaryReader.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\EffectHelper.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\VertexHelper.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\MathHelper.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\PhysxHelper.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Physx\PhysxManager.cpp">
+      <Filter>Physx</Filter>
+    </ClCompile>
+    <ClCompile Include="Physx\PhysxErrorCallback.cpp">
+      <Filter>Physx</Filter>
+    </ClCompile>
+    <ClCompile Include="Physx\PhysxProxy.cpp">
+      <Filter>Physx</Filter>
+    </ClCompile>
+    <ClCompile Include="Prefabs\CubePrefab.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="Prefabs\FixedCamera.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="Prefabs\FreeCamera.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="Prefabs\TorusPrefab.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="Prefabs\SpherePrefab.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="Prefabs\SkyBoxPrefab.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineMaterials\SkyBoxMaterial.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenegraph\GameObject.cpp">
+      <Filter>SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenegraph\GameScene.cpp">
+      <Filter>SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenegraph\SceneManager.cpp">
+      <Filter>SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenegraph\BoneObject.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="PostProcessingMaterial.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowMapMaterial.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="SkinnedShadowMapMaterial.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Base\GameTime.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\GeneralStructs.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\InputManager.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\MaterialManager.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\OverlordGame.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\SoundManager.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\stdafx.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Components.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\BaseComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\CameraComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\ColliderComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\ControllerComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\MeshDrawComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\MeshIndexedDrawComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\ParticleEmitterComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\ModelComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\RigidBodyComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\SpriteComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\TerrainComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\TransformComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Content\ContentManager.h">
+      <Filter>Content</Filter>
+    </ClInclude>
+    <ClInclude Include="Content\ContentLoader.h">
+      <Filter>Content</Filter>
+    </ClInclude>
+    <ClInclude Include="Content\EffectLoader.h">
+      <Filter>Content</Filter>
+    </ClInclude>
+    <ClInclude Include="Content\MeshFilterLoader.h">
+      <Filter>Content</Filter>
+    </ClInclude>
+    <ClInclude Include="Content\PxConvexMeshLoader.h">
+      <Filter>Content</Filter>
+    </ClInclude>
+    <ClInclude Include="Content\PxTriangleMeshLoader.h">
+      <Filter>Content</Filter>
+    </ClInclude>
+    <ClInclude Include="Content\SpriteFontLoader.h">
+      <Filter>Content</Filter>
+    </ClInclude>
+    <ClInclude Include="Content\TextureDataLoader.h">
+      <Filter>Content</Filter>
+    </ClInclude>
+    <ClInclude Include="Diagnostics\DebugRenderer.h">
+      <Filter>Diagnostics</Filter>
+    </ClInclude>
+    <ClInclude Include="Diagnostics\GameSpecs.h">
+      <Filter>Diagnostics</Filter>
+    </ClInclude>
+    <ClInclude Include="Diagnostics\Logger.h">
+      <Filter>Diagnostics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\MeshFilter.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Material.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Particle.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\ModelAnimator.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\RenderTarget.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\ShadowMapRenderer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\SpriteRenderer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\SpriteFont.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\TextureData.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\TextRenderer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\BinaryReader.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\EffectHelper.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\Enumerations.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\VertexHelper.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\MathHelper.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\Singleton.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\PhysxHelper.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Physx\PhysxAllocator.h">
+      <Filter>Physx</Filter>
+    </ClInclude>
+    <ClInclude Include="Physx\PhysxManager.h">
+      <Filter>Physx</Filter>
+    </ClInclude>
+    <ClInclude Include="Physx\PhysxErrorCallback.h">
+      <Filter>Physx</Filter>
+    </ClInclude>
+    <ClInclude Include="Physx\PhysxProxy.h">
+      <Filter>Physx</Filter>
+    </ClInclude>
+    <ClInclude Include="Prefabs\CubePrefab.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="Prefabs\FixedCamera.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="Prefabs\FreeCamera.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="Physx\OverlordSimulationFilterShader.h">
+      <Filter>Physx</Filter>
+    </ClInclude>
+    <ClInclude Include="Prefabs\TorusPrefab.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="Prefabs\SpherePrefab.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="Prefabs\SkyBoxPrefab.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="Prefabs\Prefabs.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineMaterials\SkyBoxMaterial.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenegraph\GameObject.h">
+      <Filter>SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenegraph\GameScene.h">
+      <Filter>SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenegraph\SceneManager.h">
+      <Filter>SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenegraph\BoneObject.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="PostProcessingMaterial.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowMapMaterial.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="SkinnedShadowMapMaterial.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Base">
+      <UniqueIdentifier>{6f64c51a-fbef-4c4a-929b-b67e121fb1bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{a2c386eb-c12d-4c34-8c71-93d6b3b30744}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content">
+      <UniqueIdentifier>{4718b617-70b8-42b4-afca-36aa42aae52b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{344b021d-156b-410a-b73e-09d380ffa36b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Diagnostics">
+      <UniqueIdentifier>{74a160a1-774b-4d21-b957-6afdec8fd830}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{d48edc63-daa5-49f5-8616-49d6169e1fbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helpers">
+      <UniqueIdentifier>{8555c045-b98e-4a18-875a-1e33a7f1b308}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physx">
+      <UniqueIdentifier>{ae20a371-9557-49c1-85c9-dfdd1a153538}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Prefabs">
+      <UniqueIdentifier>{1faa1003-1a03-4fbd-9ed6-ad99631dee7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneGraph">
+      <UniqueIdentifier>{39e34911-c11a-4e40-babc-c0305de7fc65}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="CourseObjects\Week2\Character.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Game\Enemy.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Game\EnemyCollision.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Game\EnemyCollisionPlayer.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Game\Level.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Game\MainCharacter.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Game\Pickup.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Game\Platformer.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials\DiffuseMaterial.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials\ColorMaterial.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Week2\CharacterTestScene.cpp">
+      <Filter>CourseObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Week1\ComponentTestScene.cpp">
+      <Filter>CourseObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Week7\HardwareSkinningScene.cpp">
+      <Filter>CourseObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Week2\ModelTestScene.cpp">
+      <Filter>CourseObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Week8\ParticleTestScene.cpp">
+      <Filter>CourseObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Week9\ShadowMappingScene.cpp">
+      <Filter>CourseObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials\SkinnedDiffuseMaterial.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Week6\SoftwareSkinningScene_1.cpp">
+      <Filter>CourseObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Week6\SoftwareSkinningScene_2.cpp">
+      <Filter>CourseObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials\SpikeyMaterial.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Week3\UberMaterialTestScene.cpp">
+      <Filter>CourseObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Week5\TerrainTestScene.cpp">
+      <Filter>CourseObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Week1\TestScene.cpp">
+      <Filter>CourseObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Week3\SpriteTestScene.cpp">
+      <Filter>CourseObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Week4\SpriteFontTestScene.cpp">
+      <Filter>CourseObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Week3\SpikeyScene.cpp">
+      <Filter>CourseObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials\UberMaterial.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials\Shadow\DiffuseMaterial_Shadow.cpp">
+      <Filter>Materials\Shadow</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials\Shadow\SkinnedDiffuseMaterial_Shadow.cpp">
+      <Filter>Materials\Shadow</Filter>
+    </ClCompile>
+    <ClCompile Include="PostBlur.cpp">
+      <Filter>Materials\Post</Filter>
+    </ClCompile>
+    <ClCompile Include="PostChromAb.cpp">
+      <Filter>Materials\Post</Filter>
+    </ClCompile>
+    <ClCompile Include="PostGrayScale.cpp">
+      <Filter>Materials\Post</Filter>
+    </ClCompile>
+    <ClCompile Include="PostVignette.cpp">
+      <Filter>Materials\Post</Filter>
+    </ClCompile>
+    <ClCompile Include="DiffuseMaterial_Shadow_Outline.cpp">
+      <Filter>Materials\Shadow</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuScene.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Game\Projectile.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseObjects\Game\Hud.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MainGame.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="CourseObjects\Week2\Character.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Game\Enemy.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Game\EnemyCollision.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Game\EnemyCollisionPlayer.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Game\Level.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Game\MainCharacter.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Game\Pickup.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Game\Platformer.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials\DiffuseMaterial.h">
+      <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials\ColorMaterial.h">
+      <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Week2\CharacterTestScene.h">
+      <Filter>CourseObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Week1\ComponentTestScene.h">
+      <Filter>CourseObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Week7\HardwareSkinningScene.h">
+      <Filter>CourseObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Week2\ModelTestScene.h">
+      <Filter>CourseObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Week8\ParticleTestScene.h">
+      <Filter>CourseObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Week9\ShadowMappingScene.h">
+      <Filter>CourseObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials\SkinnedDiffuseMaterial.h">
+      <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Week6\SoftwareSkinningScene_1.h">
+      <Filter>CourseObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Week6\SoftwareSkinningScene_2.h">
+      <Filter>CourseObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials\SpikeyMaterial.h">
+      <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Week3\UberMaterialTestScene.h">
+      <Filter>CourseObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Week1\TestScene.h">
+      <Filter>CourseObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Week5\TerrainTestScene.h">
+      <Filter>CourseObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Week3\SpriteTestScene.h">
+      <Filter>CourseObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Week4\SpriteFontTestScene.h">
+      <Filter>CourseObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Week3\SpikeyScene.h">
+      <Filter>CourseObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials\UberMaterial.h">
+      <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials\Shadow\DiffuseMaterial_Shadow.h">
+      <Filter>Materials\Shadow</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials\Shadow\SkinnedDiffuseMaterial_Shadow.h">
+      <Filter>Materials\Shadow</Filter>
+    </ClInclude>
+    <ClInclude Include="PostBlur.h">
+      <Filter>Materials\Post</Filter>
+    </ClInclude>
+    <ClInclude Include="PostChromAb.h">
+      <Filter>Materials\Post</Filter>
+    </ClInclude>
+    <ClInclude Include="PostGrayScale.h">
+      <Filter>Materials\Post</Filter>
+    </ClInclude>
+    <ClInclude Include="PostVignette.h">
+      <Filter>Materials\Post</Filter>
+    </ClInclude>
+    <ClInclude Include="DiffuseMaterial_Shadow_Outline.h">
+      <Filter>Materials\Shadow</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScene.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Game\Projectile.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseObjects\Game\Hud.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Game">
+      <UniqueIdentifier>{0ab158be-61ea-4b18-ad75-fbbd174e0d9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CourseObjects">
+      <UniqueIdentifier>{cd5316a9-5400-4480-ad2a-aaaee25e9e0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Materials">
+      <UniqueIdentifier>{cef9180a-7e3a-4fab-a9ed-d246529e2f58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Materials\Post">
+      <UniqueIdentifier>{1bd4b17e-a13b-4f16-a69d-9782b34dea23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Materials\Shadow">
+      <UniqueIdentifier>{78984987-f6d3-4ca7-bc6a-8f958bb0e29e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
